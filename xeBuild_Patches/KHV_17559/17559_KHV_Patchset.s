@@ -3,6 +3,10 @@
 # I've tried to name and note what each patch is doing but be warned they may not be entirely accurate.
 # - Byrom -
 
+# Credits:
+#			RGLoader - 17489 Devkit patches with labels
+#			AndThePickles - Filling in some of the blanks
+
 # TODO: Clean this up a bit
 #		Complete names & notes
 
@@ -288,7 +292,7 @@ returnTwo: # 0xb628
 	blr
 9:
 # ============================================================================
-#	HvxKeysGetKey
+#	HvxKeysGetKey - Allow access to all XeKeys properties
 # ============================================================================
 # 00 00 81 3C 00 00 00 01 48 00 00 30
 	MAKEPATCH 0x813C
@@ -296,7 +300,7 @@ returnTwo: # 0xb628
 	b	  0x30
 9:
 # ============================================================================
-# 	KV Patch ??? XeCryptBnQwBeSigVerify
+# 	Bypass CB sig check - Replaces call to XeCryptBnQwBeSigVerify
 # ============================================================================
 # 00 00 70 BC 00 00 00 01 38 60 00 01
 	MAKEPATCH 0x70BC
@@ -304,7 +308,7 @@ returnTwo: # 0xb628
 	li	  %r3, 1
 9:
 # ============================================================================
-# 	KV Patch ???
+# 	Bypass CD check
 # ============================================================================
 # 00 00 72 68 00 00 00 01 38 60 00 00
 	MAKEPATCH 0x7268
@@ -337,7 +341,7 @@ returnTwo: # 0xb628
 	li %r11, 1
 9:
 # ============================================================================
-#	??? - Both HvxImageTransformImageKey & HvxCreateImageMapping use this
+#	HvpCompareXGD2MediaID - Always return true
 # ============================================================================
 # 00 02 4D 58 00 00 00 02 38 60 00 01 4E 80 00 20
 	MAKEPATCH 0x24D58
@@ -346,7 +350,8 @@ returnTwo: # 0xb628
 	blr
 9:
 # ============================================================================
-# 	Replaces HvpPkcs1Verify branch
+# 	HvpDvdDecryptFcrt - Disable check
+#	Replaces HvpPkcs1Verify branch
 # ============================================================================
 # 00 02 64 F0 00 00 00 01 38 60 00 01
 	MAKEPATCH 0x264F0
@@ -425,7 +430,7 @@ loc_2B8:
 	nop
 9:
 # ============================================================================
-#	Function is branched to from HvxExpansionInstall - Another check???
+#	HvpInstallExpansion - Disable XeKeysStatus check
 # ============================================================================
 # 00 03 04 E8 00 00 00 01 60 00 00 00
 	MAKEPATCH 0x304E8
@@ -433,7 +438,7 @@ loc_2B8:
 	nop
 9:
 # ============================================================================
-#	Function is branched to from HvxExpansionInstall - Another check???
+#	HvpInstallExpansion - Disable KV Restricted Privs check
 # ============================================================================
 # 00 03 04 FC 00 00 00 01 60 00 00 00
 	MAKEPATCH 0x304FC
